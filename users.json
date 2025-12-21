@@ -1,0 +1,157 @@
+{
+  "7943064086": {
+    "lang": "ru",
+    "score": 146,
+    "name": "VladimirZovbun\n ",
+    "password": "8264a7b6f48cc00195128a84535c93cc24e3a5e32324cd98bdd47a83d3bc0bb2",
+    "wins": 32,
+    "games": 50,
+    "season_scores": {
+      "2025-12": 136
+    },
+    "achievements": [
+      "🎯 Первый шаг",
+      "🧪 Начинающий химик",
+      "🧠 Юный химик",
+      "first_game",
+      "five_games",
+      "ten_wins",
+      "PROFESSOR",
+      "iron",
+      "mendelevium",
+      "custom_e321c11a-1f08-4677-82a9-85b4d78aca74"
+    ],
+    "learned_elements": [
+      "fe",
+      "md"
+    ],
+    "custom_achievements": [
+      {
+        "id": "custom_2c2e9b2c-458d-4d07-81f6-b2c3f1770571",
+        "name": "Developer ❤️"
+      },
+      {
+        "id": "custom_3a25a7b8-870c-4a8e-b952-83d775ad2fd7",
+        "name": "⚡Админ"
+      }
+    ]
+  },
+  "1791029323": {
+    "name": "User9323",
+    "password": null,
+    "score": 0,
+    "wins": 0,
+    "games": 0,
+    "season_scores": {},
+    "achievements": []
+  },
+  "5182389985": {
+    "name": "Dream_Koul",
+    "password": "2aaa7386fc653ac46d06a83e26555b1b10a674fafce0dbc30d9a504db28c8e12",
+    "score": 27,
+    "wins": 7,
+    "games": 19,
+    "season_scores": {
+      "2025-12": 27
+    },
+    "achievements": [
+      "first_game",
+      "five_games",
+      "mendelevium",
+      "iron"
+    ],
+    "learned_elements": [
+      "ho"
+    ],
+    "custom_achievements": [
+      {
+        "id": "custom_9390e424-e83c-4b12-8ea8-405dc5c98560",
+        "name": "Мой броо😎😎😎"
+      },
+      {
+        "id": "custom_76458cf2-57a6-46ef-a3c6-bb770dd55143",
+        "name": "АНТОН ГАНДОН🖤🖤🖤"
+      }
+    ]
+  },
+  "7234826868": {
+    "name": "User6868",
+    "password": null,
+    "score": 1,
+    "wins": 1,
+    "games": 2,
+    "season_scores": {
+      "2025-12": 1
+    },
+    "achievements": []
+  },
+  "5909635344": {
+    "name": "User5344",
+    "password": null,
+    "score": 0,
+    "wins": 0,
+    "games": 0,
+    "season_scores": {},
+    "achievements": []
+  },
+  "7526418840": {
+    "name": "User8840",
+    "score": 20,
+    "wins": 4,
+    "games": 4,
+    "season_scores": {
+      "2025-12": 20
+    },
+    "achievements": [
+      "custom_a6513f51-8196-4249-8327-a679553f01e4"
+    ],
+    "learned_elements": [],
+    "custom_achievements": [
+      {
+        "id": "custom_446dfe43-3ea4-4a17-b617-14d009ef4172",
+        "name": "❤️ Любимчик Админа"
+      }
+    ]
+  },
+  "5470674130": {
+    "name": "Zpermoslav67",
+    "score": 10,
+    "wins": 10,
+    "games": 13,
+    "season_scores": {
+      "2025-12": 10
+    },
+    "achievements": [
+      "🎯 Первый шаг",
+      "🧪 Начинающий химик",
+      "custom_d5a1cf16-0bc2-4d40-88de-5e70a2e787b9",
+      "first_game",
+      "five_games",
+      "mendelevium",
+      "iron",
+      "ten_wins"
+    ],
+    "learned_elements": [],
+    "custom_achievements": [
+      {
+        "id": "custom_7ee5bc79-3af8-4f76-b3b1-52b57e75e1c2",
+        "name": "67😭"
+      },
+      {
+        "id": "custom_a962662c-618f-45a3-9a88-81e49c6e5a4b",
+        "name": "Физ-гум💔"
+      }
+    ]
+  },
+  "User8840": {
+    "name": "User8840",
+    "score": 0,
+    "wins": 0,
+    "games": 0,
+    "season_scores": {},
+    "achievements": [
+      "custom_36461bda-c79a-404c-8c01-c835ad24a9d3"
+    ],
+    "learned_elements": []
+  }
+}
