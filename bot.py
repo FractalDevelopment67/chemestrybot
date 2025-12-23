@@ -6,6 +6,7 @@ import hashlib
 import uuid
 from datetime import datetime
 from telebot import types
+from datetime import date
 
 TOKEN = "8410255007:AAFK2ySE5yxtaB7Mc6CJBDuESbNTBl-7oZE"
 ADMIN_CODE = "5214886769"
@@ -54,11 +55,77 @@ def get_user(uid):
     u.setdefault("games", 0)
     u.setdefault("season_scores", {})
     u.setdefault("achievements", [])
-    u.setdefault("learned_elements", [])  # ← ВАЖНО
     u.setdefault("custom_achievements", [])
+    u.setdefault("learned_elements", [])
+
+    # 🔥 НОВОЕ
+    u.setdefault("day_streak", 0)
+    u.setdefault("last_login", None)
 
     save_users()
     return u
+
+def handle_daily_login(uid):
+    u = get_user(uid)
+    today = date.today().isoformat()
+    yesterday = (date.today().fromordinal(date.today().toordinal() - 1)).isoformat()
+
+    if u["last_login"] == today:
+        return  # уже заходил сегодня
+
+    if u["last_login"] == yesterday:
+        u["day_streak"] += 1
+    else:
+        u["day_streak"] = 1
+
+    # 🎁 БОНУС (можешь менять формулу)
+    bonus = min(5, u["day_streak"])  # макс 5 очков
+    u["score"] += bonus
+
+    u["last_login"] = today
+    save_users()
+
+    bot.send_message(
+        int(uid),
+        f"🔥 *Дейли вход!*\n"
+        f"📆 Стрик: {u['day_streak']} дней\n"
+        f"🎁 Бонус: +{bonus}⭐",
+        parse_mode="Markdown"
+    )
+
+def element_of_the_day():
+    today = date.today().isoformat()
+    random.seed(today)  # ❗ ключевая магия
+    return random.choice(elements)
+
+@bot.message_handler(func=lambda m: m.text == "🧪 Элемент дня")
+def send_element_of_day(msg):
+    try:
+        e = element_of_the_day()
+
+        text = (
+            f"🧪 *Элемент дня*\n\n"
+            f"*{e['ru_name']}* ({e['symbol']})\n"
+            f"🔢 Номер: {e['number']}\n"
+            f"⚛ Масса: {e.get('atomic_mass','—')}\n"
+            f"📦 Группа: {e.get('group','—')}\n"
+            f"📐 Период: {e.get('period','—')}\n"
+            f"🔗 Валентность: {e.get('valency','—')}\n"
+            f"🧩 Тип: {e.get('type','—')}"
+        )
+
+        bot.send_message(
+            msg.chat.id,
+            text,
+            parse_mode="Markdown",
+            reply_markup=main_menu()
+        )
+
+    except Exception as ex:
+        bot.send_message(
+            msg.chat.id,
+            f"❌ Ошибка элемента дня:\n{ex}"
+        )
 
 ACHIEVEMENTS = {
     "first_game": {
@@ -114,6 +181,28 @@ ACHIEVEMENTS = {
         "goal": 50,
         "type": "wins",
         "reward": 3
+    },
+
+    "streak_3": {
+        "name": "🔥 На огоньке",
+        "desc": "Зайти 3 дня подряд",
+        "hidden": False,
+        "goal": 3,
+        "type": "streak"
+    },
+    "streak_7": {
+        "name": "🔥🔥 Горю!",
+        "desc": "Зайти 7 дней подряд",
+        "hidden": False,
+        "goal": 7,
+        "type": "streak"
+    },
+    "streak_30": {
+        "name": "Цыпленок жареный",
+        "desc": "Зайти 30 дней подряд!1!1",
+        "hidden": True,
+        "goal": 30,
+        "type": "streak"
     }
 }
 
@@ -160,6 +249,7 @@ def main_menu():
     kb.row("🔐 Приватный матч", "🏆 Рейтинг")
     kb.row("📊 Статистика", "🛠Сменить имя")
     kb.row("🏅 Достижения", "ℹ️ Помощь")
+#    kb.row("💊 Элемент дня")
     return kb
 
 def rating_menu():
@@ -187,10 +277,14 @@ def private_menu():
 # ========= START =========
 @bot.message_handler(commands=["start"])
 def start(msg):
-    get_user(msg.from_user.id)
+    uid = msg.from_user.id
+    get_user(uid)
+
+    handle_daily_login(uid)  # ← ВОТ ЗДЕСЬ
+
     bot.send_message(
         msg.chat.id,
-        "👋 Добро пожаловать!\nВыберите действие:",
+        "👋 Добро пожаловать!",
         reply_markup=main_menu()
     )
 
@@ -483,6 +577,8 @@ def find_user_by_name_or_id(query):
 
     return None
 
+
+
 @bot.message_handler(func=lambda m: m.text == "⬅ Назад" and m.from_user.id in admins)
 def admin_back(msg):
     bot.send_message(msg.chat.id, "Главное меню", reply_markup=main_menu())
@@ -561,6 +657,9 @@ def check_achievements(uid):
             gained.append(
                 f"{a['name']}" + (f" (+{reward}⭐)" if reward else "")
             )
+
+    if a["type"] == "streak":
+        current = u["day_streak"]
 
     if gained:
         save_users()
